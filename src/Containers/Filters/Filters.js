@@ -78,10 +78,4 @@ class Filters extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-      filters: state.filters
-  };
-}
-
-export default connect(mapStateToProps)(Filters);
+export default connect()(Filters);
