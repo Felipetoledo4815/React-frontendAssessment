@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import './Gnomes.sass';
-import GnomeProfile from './gnome-profile/GnomeProfile';
+import {connect} from 'react-redux';
+import GnomeProfile from '../../Components/Gnome-profile/GnomeProfile';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-export default class Gnomes extends Component {
-  
+class GnomesList extends Component {
+ 
   state = {
     items: 20,
     hasMore: true
   };
 
   fetchMoreData = () => {
-    debugger
-    if (this.state.items >= this.props.numberOfGnomes) {
+    if (this.state.items >= this.props.allGnomes.length) {
       this.setState({ hasMore: false });
       return;
     }
@@ -29,11 +29,20 @@ export default class Gnomes extends Component {
           next={this.fetchMoreData}
           hasMore={this.state.hasMore}
         > 
-          {this.props.gnomes.slice(0,this.state.items).map((val, key) => (
-            <GnomeProfile key={val.id ? val.id : key} gnome={val} />
+          {this.props.filteredGnomes.slice(0,this.state.items).map((val) => (
+            <GnomeProfile key={val.id} gnome={val} />
           ))}
         </InfiniteScroll>
       </div>
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    allGnomes: state.filters.allGnomes,
+    filteredGnomes: state.filters.filteredGnomes
+  };
+}
+
+export default connect(mapStateToProps)(GnomesList);
