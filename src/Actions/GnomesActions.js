@@ -6,7 +6,7 @@ export function getAllGnomes() {
         dispatch({type:'FETCH_ALL_GNOMES'})
         axios.get('https://raw.githubusercontent.com/rrafols/mobile_test/master/data.json').then(response => {
             setGnomesGender(response.data.Brastlewark);
-            dispatch({type:'FETCH_ALL_GNOMES_FULLFILLED', payload: response.data.Brastlewark})
+            dispatch({type:'FETCH_ALL_GNOMES_FULLFILLED'})
             dispatch({type:'SET_GNOMES', payload: response.data.Brastlewark})
         })
         .catch(err => {
